@@ -11,20 +11,10 @@ in the TTCF window, and the torch device with --device / the Device combo.
 Both give the same matrix, so switching is a speed choice — changing either
 combo recomputes the current ROI immediately.
 
-boost_corr needs `pip install boost_corr torch` in the running environment. If
-they are missing the Engine combo still lists boost_corr, greyed out, with the
-reason in its tooltip.
-
 The TTCF ROI persists between runs (stored in detector coordinates, so it lands
 on the same patch of detector even though the qmap crop moves from scan to
 scan). The viewer opens on the last frame and correlates that ROI immediately,
 so the full map is on screen at startup.
-
-To-do
-    - other sources of metadata (txt files vs NDAttributes)?
-    - add Qxy, Qz values to cursor positions
-    - "discover" masks instead of using qmaps.
-    - integrate bad pixel mask
 
 """
 
