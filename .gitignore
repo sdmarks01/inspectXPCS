@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# data / results — never commit beamline data
+*.hdf
+*.hdf5
+*.h5
