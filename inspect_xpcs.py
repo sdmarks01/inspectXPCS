@@ -17,36 +17,6 @@ argument, pass a plain path to bypass the lookup, or --list to see what is there
 Running from inside an experiment (its data/ folder, say) picks that experiment,
 so a bare scan name is enough there.
 
-Nothing below the experiment root is assumed to keep its shape between beamtimes:
-a scan directory is searched shallowest-first for the raw .h5 (<scan>/<scan>.h5,
-<scan>/<scan>_rNNNNN/<scan>_rNNNNN.h5, or otherwise), --run picks between repeats,
-and the results HDF holding the qmap is looked for under analysis/Both and then
-anywhere a couple of levels down analysis/, under the run name and then the scan
-name. When a guess is made it is printed, so the header lines say which file was
-actually opened.
-
-To run it as a command from anywhere:
-
-    chmod +x inspect_xpcs_bc.py
-    ln -s "$PWD/inspect_xpcs_bc.py" ~/bin/inspect_xpcs     # ~/bin on $PATH
-    inspect_xpcs marks202606 L0188
-
-The TTCF is computed either numpy matmul or with boost_corr's
-TwotimeCorrelator (torch, GPU-capable); pick with --engine / the Engine combo
-in the TTCF window, and the torch device with --device / the Device combo.
-Both give the same matrix, so switching is a speed choice — changing either
-combo recomputes the current ROI immediately.
-
-Before correlating, the pixels are normalised the way the full pipeline does it:
-each frame divided by its own mean inside each fine static q bin (the qmap's
-static_roi_map). That normaliser is measured per frame, so it follows the static
-scattering pattern however fast the pattern changes. The older behaviour —
-dividing each pixel by its average over the whole series — is still there under
-Static norm / --norm, but it assumes the static pattern never changes, and on a
-run where the sample itself changes (plating, dissolution, a phase transition)
-the residue it leaves labels each frame with its state and fills the map with an
-off-diagonal checkerboard of the cycle that has nothing to do with dynamics.
-
 """
 
 import argparse
